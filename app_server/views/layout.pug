@@ -8,13 +8,13 @@ html
     .navbar-default.navbar.navbar-fixed-top
       .container
         .navbar-header
-        a(href='/').navbar-brand('/') MekanBul
-        button.navbar-toggle(type='button',data-toggle='collapse',data-target='#navbar-main')
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        #navbar-main.navbar-collapse.collapse 
-          ul.nav.navbar-nav 
+          a.navbar-brand(href='/') MekanBul
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar-main')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        #navbar-main.navbar-collapse.collapse
+          ul.nav.navbar-nav
             li
               a(href='/hakkinda') Hakkında
   .container
@@ -22,5 +22,5 @@ html
     footer 
       .col-12
         small &copy; Yavuz Enes Topçu 2022
-script (src='/javascripts/jquery-3.6.1.min.js')
-script (src='/bootstrap/js/bootstrap.min.js')
+script(src='/javascripts/jquery-3.6.1.min.js')
+script(src='/bootstrap/js/bootstrap.min.js')
