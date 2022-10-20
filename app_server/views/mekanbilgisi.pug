@@ -1,187 +1,58 @@
 extends layout
+include fonksiyonlar/yildiz.pug
 block content
-  #starbucks
   .row.page-header
     .col-lg-12
-      h1 Starbucks 
+      h1 #{mekanBaslik}
   .row 
     .col-xs-12.col-md-12
       .row
         .col-xs-12.col-sm-6
           p.rating
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star-empty
-          p Centrum Garden AVM
+            +puanOlustur(mekanDetay.puan)
+          p #{mekanDetay.adres}
           .panel.panel-primary
             .panel-heading
               h2.panel-title Açılış Saatleri
             .panel-body
-              p
-                | Pazartesi - Cuma : 7:00 - 23:00
-              p
-                | Cumartesi - Pazar : 9:00 - 22:00
+              each saat in mekanDetay.saatler 
+                p
+                  | #{saat.gunler} &nbsp;
+                  if (saat.kapali)
+                    | Kapalı
+                  else 
+                    | #{saat.acilis}-#{saat.kapanis}
+              
           .panel.panel-primary
             .panel-heading
               h2.panel-title Neler Var?
             .panel-body
-              span.label.label-warning Dünya Kahveleri
-              | &nbsp;
-              span.label.label-warning Kek
-              | &nbsp;
-              span.label.label-warning Pasta
-              | &nbsp;
+              each imkan in mekanDetay.imkanlar  
+                span.label.label-warning #{imkan}
+                | &nbsp;
         .col-xs-12.col-sm-6
           .panel.panel-primary
             .panel-heading
               h2.panel-title Konum Bilgisi
             .panel-body
-              -var enlem=37.78
-              -var boylam=30.56
+              -var enlem=mekanDetay.koordinatlar.enlem
+              -var boylam=mekanDetay.koordinatlar.boylam
               img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center='+enlem+','+boylam+'&zoom=12&size=600x400&markers='+enlem+','+boylam+'&key=AIzaSyCmmKygTpBzHGOZEciJpAdxC9v_tWHagnE')
-  .row
-    .col-xs-12
-      .panel.panel-primary
-        .panel-heading
-          a.btn.btn-default.pull-right(href='/mekan/yorum/yeni#starbucks') Yorum Ekle
-          h2.panel-title Müşteri Yorumları
-        .panel-body.review-container
-          .row
-            .review
-              .well.well-sm.review-header
-                span.rating
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star-empty
-                span.review-author &nbsp; Utku Selek
-                small.reviewTimestamp &nbsp; 8 Ağustos 2022
-              .col-xs-12
-                p Mükemmel bir iş yeri. Güler yüzlü, tatlı dilli çalışanları var. Hijyenik bir yer.
   
-  #camkafe
-  .row.page-header
-    .col-lg-12
-      h1 Barida Cam Kafe 
   .row 
-    .col-xs-12.col-md-12
-      .row
-        .col-xs-12.col-sm-6
-          p.rating
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-          p SDÜ Batı Kampüsü
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Açılış Saatleri
-            .panel-body
-              p
-                | Pazartesi - Cuma : 7:00 - 17:00
-              p
-                | Cumartesi - Pazar : Kapalı
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Neler Var?
-            .panel-body
-              span.label.label-warning Mühendis Gençler
-              | &nbsp;
-              span.label.label-warning Çay
-              | &nbsp;
-              span.label.label-warning Kahve
-              | &nbsp;
-              span.label.label-warning Tost
-              | &nbsp;
-        .col-xs-12.col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Konum Bilgisi
-            .panel-body
-              -var enlem=37.82
-              -var boylam=30.52
-              img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center='+enlem+','+boylam+'&zoom=12&size=600x400&markers='+enlem+','+boylam+'&key=AIzaSyCmmKygTpBzHGOZEciJpAdxC9v_tWHagnE')
-  .row
-    .col-xs-12
-      .panel.panel-primary
+    .col-xs-12 
+      .panel.panel-primary 
         .panel-heading
-          a.btn.btn-default.pull-right(href='/mekan/yorum/yeni#camkafe') Yorum Ekle
+          a.btn.btn-default.pull-right(href='/mekan/yorum/yeni') Yorum Ekle 
           h2.panel-title Müşteri Yorumları
         .panel-body.review-container
-          .row
-            .review
-              .well.well-sm.review-header
-                span.rating
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.review-author &nbsp; Kerim Cengiz
-                small.reviewTimestamp &nbsp; 13 Ekim 2022
-              .col-xs-12
-                p SDÜ Batı Kampüsü'nün tam ortasında. Güzel bir yer. Fiyatları da abartılmamış bir işletme.
-
-  #popeyes
-  .row.page-header
-    .col-lg-12
-      h1 Popeyes 
-  .row 
-    .col-xs-12.col-md-12
-      .row
-        .col-xs-12.col-sm-6
-          p.rating
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star-empty
-            span.glyphicon.glyphicon-star-empty
-          p İyaşpark AVM
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Açılış Saatleri
-            .panel-body
-              p
-                | Pazartesi - Pazar : 10:00 - 22:00
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Neler Var?
-            .panel-body
-              span.label.label-warning Tavuk
-              | &nbsp;
-              span.label.label-warning Burger
-              | &nbsp;
-              span.label.label-warning İçecek
-              | &nbsp;
-        .col-xs-12.col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Konum Bilgisi
-            .panel-body
-              -var enlem=37.78
-              -var boylam=30.54
-              img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center='+enlem+','+boylam+'&zoom=12&size=600x400&markers='+enlem+','+boylam+'&key=AIzaSyCmmKygTpBzHGOZEciJpAdxC9v_tWHagnE')
-  .row
-    .col-xs-12
-      .panel.panel-primary
-        .panel-heading
-          a.btn.btn-default.pull-right(href='/mekan/yorum/yeni#popeyes') Yorum Ekle
-          h2.panel-title Müşteri Yorumları
-        .panel-body.review-container
-          .row
-            .review
-              .well.well-sm.review-header
-                span.rating
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star-empty
-                span.glyphicon.glyphicon-star-empty
-                span.review-author &nbsp; Elif Turan
-                small.reviewTimestamp &nbsp; 10 Eylül 2022
-              .col-xs-12
-                p Tat olarak fena değil ama bu fiyata asla değmez.
+          each yorum in mekanDetay.yorumlar  
+            .row 
+              .review 
+                .well.well-sm.review-header 
+                  span.rating 
+                  +puanOlustur(yorum.puan)
+                  span.review-author &nbsp; #{yorum.yorumYapan}
+                  small.reviewTimestamp &nbsp; #{yorum.tarih}
+                .col-xs-12 
+                  p #{yorum.yorumMetni}
