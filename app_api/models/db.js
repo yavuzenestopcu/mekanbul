@@ -1,6 +1,6 @@
 var mongoose = require("mongoose")
-require("./mekansema")
-var dbURI = "mongodb+srv://yavuuz:1234@mekanbul.9lwcylg.mongodb.net/?retryWrites=true&w=majority"
+var dbURI = "mongodb://localhost/mekanbul"
+//var dbURI = "mongodb+srv://yavuuz:1234@mekanbul.9lwcylg.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(dbURI)
 function kapat(msg, callback) {
     mongoose.connection.close(function() {
@@ -25,3 +25,4 @@ mongoose.connection.on("error", function() {
     console.log("Bağlantı hatası")
 }
 )
+require("./mekansema")
