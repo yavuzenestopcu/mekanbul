@@ -65,7 +65,35 @@ const mekanlariListele = async (req, res) => {
 }
 
 const mekanEkle = function (req, res) {
-    cevapOlustur(res, 200, { "durum": "başarılı" })
+    Mekan.create(
+        {
+          ad: req.body.ad,
+          adres: req.body.adres,
+          imkanlar: req.body.imkanlar.split(","),
+          koordinat: [parseFloat(req.body.enlem), parseFloat(req.body.boylam)],
+          saatler: [
+            {
+              gunler: req.body.gunler1,
+              acilis: req.body.acilis1,
+              kapanis: req.body.kapanis1,
+              kapali: req.body.kapali1,
+            },
+            {
+              gunler: req.body.gunler2,
+              acilis: req.body.acilis2,
+              kapanis: req.body.kapanis2,
+              kapali: req.body.kapali2,
+            },
+          ],
+        },
+        (hata, mekan) => {
+          if (hata) {
+            cevapOlustur(res, 400, hata);
+          } else {
+            cevapOlustur(res, 200, mekan);
+          }
+        }
+      );
 }
 
 const mekanGetir = function (req, res) {
