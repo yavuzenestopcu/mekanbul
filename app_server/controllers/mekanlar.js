@@ -1,7 +1,7 @@
 const axios = require("axios")
 
 var apiSecenekleri = {
-  sunucu: "http://localhost:3000",
+  sunucu: "https://mekanbul.yavuzenestopcu.repl.co",
   apiYolu: "/api/mekanlar/"
 }
 
@@ -58,43 +58,39 @@ const anaSayfa = function (req, res, next) {
   })
 }
 
-const mekanBilgisi = function (req, res, next) {
+const detaySayfasiOlustur = function (res, mekanDetaylari) {
+  mekanDetaylari.koordinat = {
+    "enlem": mekanDetaylari.koordinat[0],
+    "boylam": mekanDetaylari.koordinat[1]
+  }
   res.render('mekanbilgisi', {
-    'baslik': 'Mekan Bilgisi',
-    'mekanBaslik': 'Starbucks',
-    'mekanDetay': {
-      'ad': 'Starbucks',
-      'puan': 4,
-      'adres': 'Centrum Garden AVM',
-      'saatler': [
-        {
-          'gunler': 'Pazartesi-Cuma',
-          'acilis': '07:00',
-          'kapanis': '23:00',
-          'kapali': false
-        },
-        {
-          'gunler': 'Cumartesi-Pazar',
-          'acilis': '09:00',
-          'kapanis': '22:00',
-          'kapali': false
-        }
-      ],
-      'imkanlar': ['Dünya Kahveleri', 'Kek', 'Pasta'],
-      'koordinatlar': {
-        'enlem': 37.78,
-        'boylam': 30.56
-      },
-      'yorumlar': [
-        {
-          'yorumYapan': 'Umut Selek',
-          'yorumMetni': 'Mükemmel bir iş yeri. Güler yüzlü, tatlı dilli çalışanları var. Hijyenik bir yer.',
-          'tarih': '8 Ağustos 2022',
-          'puan': 4
-        }
-      ]
-    }
-  });
+    mekanBaslik: mekanDetaylari.ad,
+    mekanDetay: mekanDetaylari
+  })
+}
+
+const hataGoster = function (res, hata) {
+  var mesaj
+  if (hata.response.status == 404) {
+    mesaj = "404, Sayfa Bulunamadı!"
+  }
+  else {
+    mesaj = hata.response.status + " hatası"
+  }
+  res.status(hata.response.status)
+  res.render('error', {
+    "mesaj": mesaj
+  })
+}
+
+const mekanBilgisi = function (req, res, next) {
+  axios.get(apiSecenekleri.sunucu + apiSecenekleri.apiYolu + req.params.mekanid)
+    .then(function (response) {
+      detaySayfasiOlustur(res, response.data)
+    })
+    .catch(function (hata) {
+      hataGoster(res, hata)
+    })
 }
 
 const yorumEkle = function (req, res, next) {
