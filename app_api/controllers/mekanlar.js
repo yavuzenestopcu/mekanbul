@@ -1,3 +1,4 @@
+const { consoleLog } = require("mocha/lib/reporters/base")
 var mongoose = require("mongoose")
 var Mekan = mongoose.model("mekan")
 const cevapOlustur = function (res, status, content) {
