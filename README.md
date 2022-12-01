@@ -1,4 +1,4 @@
-[Yakındaki Mekanları Listele - Replit Linki](https://mekanbul.yavuzenestopcu.repl.co?enlem=37&boylam=35)
+[Yakındaki Mekanları Listele - Replit Linki](https://mekanbul.yavuzenestopcuu.repl.co/?enlem=32&boylam=35)
 
 # MekanBul REST API Adresleri
 
