@@ -1,8 +1,8 @@
 const axios = require("axios")
 
 var apiSecenekleri = {
-  sunucu: "http://localhost:3000",
-  // sunucu: "https://mekanbul.yavuzenestopcuu.repl.co",
+  // sunucu: "http://localhost:3000",
+  sunucu: "https://mekanbul.yavuzenestopcu.repl.co",
   apiYolu: "/api/mekanlar/"
 }
 
@@ -127,8 +127,8 @@ const yorumumuEkle = function (req, res, next) {
     .then(function () {
       res.redirect("/mekan/" + mekanid)
     })
-    .catch(function () {
-      console.log("hata")
+    .catch(function (hata) {
+      hataGoster(req, res, hata)
     })
   }
 }
